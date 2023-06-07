@@ -10,8 +10,6 @@
 
   <p align="center">
     Content-Based Recommender System
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
   </p>
 </div>
 
@@ -24,7 +22,7 @@
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#objectives">Objectives</a></li>
-        <li><a href="#project-files">Project Files Description</a></li>
+        <li><a href="#project-files-description">Project Files Description</a></li>
       </ul>
     </li>
     <li>
@@ -83,7 +81,7 @@ All the users, posts and feed tabular data are stored in a database as follows:
 
 - The main objective of this project was to build a web service that by a user’s id could predict and show top-5 posts that that user might like or be interested in. 
   To accomplish that Content-Based recommender system technique was implemented by means of machine learning.
-- The idea was also to conduct a simulation of an A/B test. For this purpose, all the users were divided into two groups (control and test) as well as two different ML models were trained to get predictions. The control group was exposed to a “weaker” model and the test group – to a “stronger” one.
+- The idea was also to conduct a simulation of A/B test. For this purpose, all the users were divided into two groups (control and test) as well as two different ML models were trained to get predictions. The control group was exposed to a “weaker” model and the test group – to a “stronger” one.
 - Additionally, the recommender system was integrated with a Telegram bot. 
 
 
@@ -98,7 +96,6 @@ All the users, posts and feed tabular data are stored in a database as follows:
 #### Output Files:
 * ***catboost_model_tfidf*** – a trained model used for the control group;
 * ***catboost_model_bertemb*** – A trained model used for the test group.
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -145,5 +142,6 @@ All the users, posts and feed tabular data are stored in a database as follows:
 
 ## Demo
 
+## License
 
 
