@@ -55,10 +55,13 @@ All the users, posts and feed tabular data are stored in a database as follows:
   * id - User's id;
   * os - Type of OS used by a user;
   * source - Source a user came to the platform from
+
 * **post_text_df** table contains information about posts:
   * id - Unique post’s id;
   * text - Textual content of a post;
   * topic - Main topic of a post;
+
+
 * **feed_data** tracks a user's interaction with posts:
   * timestamp - Time when a user interacted with a post;
   * user_id - User's id;
@@ -79,7 +82,7 @@ All the users, posts and feed tabular data are stored in a database as follows:
 
 ### Objectives
 
-- The main objective of this project was to build a web service that by a user’s id could predict and show top-5 posts that that user might like or be interested in. 
+- The main objective of this project was to build a web service that predicts and displays top-5 posts to a user in which he might be interested the most.
   To accomplish that Content-Based recommender system technique was implemented by means of machine learning.
 - The idea was also to conduct a simulation of A/B test. For this purpose, all the users were divided into two groups (control and test) as well as two different ML models were trained to get predictions. The control group was exposed to a “weaker” model and the test group – to a “stronger” one.
 - Additionally, the recommender system was integrated with a Telegram bot. 
@@ -142,6 +145,11 @@ All the users, posts and feed tabular data are stored in a database as follows:
 
 ## Demo
 
+<img align='center' src="https://github.com/paverGulyaevich/recommender_3000/blob/master/demo.gif" height='500' />
+
 ## License
 
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
