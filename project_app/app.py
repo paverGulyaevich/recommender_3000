@@ -108,6 +108,7 @@ def get_model_path_test(path: str) -> str:
 # Load-features function
 def load_features():
     logger.info("loading liked posts")
+
     # Query unique entries post_id, user_id with likes
     liked_posts_query = """
     SELECT DISTINCT post_id, user_id
@@ -117,6 +118,7 @@ def load_features():
     liked_posts = batch_load_sql(liked_posts_query)
 
     logger.info('loading posts features with TF-IDF')
+
     # Query TF-IDF posts' features
     posts_features_tfidf = pd.read_sql(
         """
@@ -127,8 +129,9 @@ def load_features():
     )
 
     logger.info('loading posts features with BERT embeddings')
-    # Query FastText posts' features
-    posts_features_fasttext = pd.read_sql(
+
+    # Query BERT posts' features
+    posts_features_bertemb = pd.read_sql(
         """
         SELECT *
         FROM public.pg_posts_features_bertemb
@@ -137,6 +140,7 @@ def load_features():
     )
 
     logger.info("loading user features")
+
     # Query users' features
     user_features = pd.read_sql(
         """
@@ -145,13 +149,16 @@ def load_features():
         """,
         con="postgresql://robot-startml-ro:pheiph0hahj1Vaif@postgres.lab.karpov.courses:6432/startml"
     )
-    return [liked_posts, posts_features_tfidf, posts_features_fasttext, user_features]
+    return [liked_posts, posts_features_tfidf, posts_features_bertemb, user_features]
 
 
 # Load-models function
 def load_models():
+    # Specify the control model's path
     model_path_control = get_model_path_control("D:\start_ml\my_project\project_app\my_models\catboost_model_tfidf")
+    # Specify the test model's path
     model_path_test = get_model_path_test("D:\start_ml\my_project\project_app\my_models\catboost_model_bertemb")
+
     loaded_model_control = CatBoostClassifier()
     loaded_model_test = CatBoostClassifier()
     loaded_model_control.load_model(model_path_control)
@@ -169,7 +176,7 @@ logger.info('Service is up and running')
 
 # Splitting users into test and control groups for A/B test
 def get_exp_group(user_id: int, salt='my_salt', ab_size=50) -> str:
-    encoded_id = int(hashlib.md5((str(user_id) + salt).encode()).hexdigest(), 16) % 100  # Encode user's id using salt
+    encoded_id = int(hashlib.md5((str(user_id) + salt).encode()).hexdigest(), 16) % 100  # Encode user's id with salt
     if encoded_id >= ab_size:
         return 'test'
     else:
@@ -180,6 +187,7 @@ def get_exp_group(user_id: int, salt='my_salt', ab_size=50) -> str:
 def get_recommended_feed(id: int, time: datetime, limit: int):
     logger.info(f'user_id: {id}')
     logger.info('reading features')
+
     # Load users' features
     user_features = features[3].loc[features[3].user_id == id]
     user_features = user_features.drop('user_id', axis=1)
